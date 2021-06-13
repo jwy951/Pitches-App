@@ -1,4 +1,5 @@
 import os
+# from flask import app
 
 class Config:
     """
@@ -18,6 +19,13 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
+
+# class ProdConfig(Config):
+#     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
+#     if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+#         SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
+#     pass
+
 class ProdConfig(Config):
     """
     Production configuration child class
@@ -26,9 +34,22 @@ class ProdConfig(Config):
         Config: The parent configuration class with General
         configuration settings
     """
-    # pass
+    pass
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    
+
+
+# class DevConfig(Config):
+#     '''
+#     Development  configuration child class
+#     '''
+#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:30196642@localhost/yegon'
+#     '''
+#     Args:
+#         Config: The parent configuration class with General configuration settings
+#     '''
+
+#     DEBUG = True
+
 
 class DevConfig(Config):
     """
@@ -41,7 +62,7 @@ class DevConfig(Config):
     DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     DEBUG = True
-
+    
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 
