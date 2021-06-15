@@ -9,7 +9,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY")
     # DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
     # email configurations
@@ -20,54 +20,34 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 
-# class ProdConfig(Config):
-#     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
-#     if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-#         SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
-#     pass
-
 class ProdConfig(Config):
-    """
-    Production configuration child class
-
-    Args:
-        Config: The parent configuration class with General
-        configuration settings
-    """
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
+    if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
     pass
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-
-
-# class DevConfig(Config):
-#     '''
-#     Development  configuration child class
-#     '''
-#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:30196642@localhost/yegon'
-#     '''
-#     Args:
-#         Config: The parent configuration class with General configuration settings
-#     '''
-
-#     DEBUG = True
 
 
 class DevConfig(Config):
-    """
-    Development configuration child class
-
-    Args:
-        Config: The parent configuration class with General
-        configuration settings
-    """
-    DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    DEBUG = True
+    '''
+    Development  configuration child class
+    '''
     
+    '''
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:30196642@localhost/pitch'
+    DEBUG = True
+
+
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:30196642@localhost/pitch_test'
+    DEBUG = True
 
 config_options = {
     'development' : DevConfig,
     'production' : ProdConfig,
     'test' : TestConfig
 }
+
+
