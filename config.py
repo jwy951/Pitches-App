@@ -9,7 +9,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY")
     # DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
     # email configurations
